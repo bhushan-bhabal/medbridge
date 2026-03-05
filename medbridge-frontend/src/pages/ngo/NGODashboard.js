@@ -10,8 +10,8 @@ export default function NGODashboard() {
   const [toast, setToast] = useState('');
 
   useEffect(() => {
-    fetchApproved();
-  }, []);
+  fetchApproved();
+  }, [fetchApproved]);
 
   const fetchApproved = async () => {
     setLoading(true);
