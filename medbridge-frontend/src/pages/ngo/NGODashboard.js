@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import Toast from '../../components/Toast';
 import { useAuth } from '../../contexts/AuthContext';
@@ -9,26 +9,29 @@ export default function NGODashboard() {
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState('');
 
-  useEffect(() => {
-  fetchApproved();
-  }, [fetchApproved]);
-
-  const fetchApproved = async () => {
+  const fetchApproved = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/medicines?status=approved', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/medicines?status=approved`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setMedicines(res.data);
     } catch {
       setToast('Failed to load medicines');
     }
     setLoading(false);
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchApproved();
+  }, [fetchApproved]);
 
   const handleClaim = async (id) => {
     try {
-      await axios.post(`http://localhost:5000/api/medicines/claim/${id}`, {}, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/medicines/claim/${id}`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setToast('Medicine claimed!');
@@ -114,7 +117,7 @@ export default function NGODashboard() {
                 <p style={{ margin: '4px 0 12px' }}>Quantity: <b>{med.quantity}</b></p>
                 {med.photoUrl && (
                   <img
-                    src={med.photoUrl.startsWith('http') ? med.photoUrl : `http://localhost:5000${med.photoUrl}`}
+                    src={med.photoUrl.startsWith('http') ? med.photoUrl : `${process.env.REACT_APP_API_URL.replace('/api','')}${med.photoUrl}`}
                     alt={med.name}
                     style={{
                       width: '100%',
