@@ -264,7 +264,7 @@ export default function DonorDashboard() {
                   src={
                     med.photoUrl.startsWith("http")
                       ? med.photoUrl
-                      : `http://localhost:5000${med.photoUrl}`
+                      : `${process.env.REACT_APP_API_URL.replace("/api", "")}${med.photoUrl}`
                   }
                   alt={med.name}
                   style={{
