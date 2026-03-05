@@ -13,7 +13,7 @@ const Profile = () => {
     if (!token) return;
     setLoading(true);
     axios
-      .get("http://localhost:5000/api/auth/me", {
+      .get(`${process.env.REACT_APP_API_URL}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setForm((f) => ({ ...f, ...res.data, password: "" })))
@@ -32,7 +32,7 @@ const Profile = () => {
       const updateObj = { name: form.name, email: form.email, contact: form.contact };
       if (form.password) updateObj.password = form.password;
 
-      await axios.put("http://localhost:5000/api/auth/me", updateObj, {
+      await axios.put(`${process.env.REACT_APP_API_URL}/auth/me`, updateObj, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

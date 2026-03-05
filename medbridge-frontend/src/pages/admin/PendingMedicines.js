@@ -15,7 +15,7 @@ export default function PendingMedicines() {
     const fetchPending = async () => {
       setLoading(true);
       try {
-        const res = await axios.get('http://localhost:5000/api/medicines?status=pending', {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/medicines?status=pending`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPending(res.data);
@@ -44,12 +44,12 @@ export default function PendingMedicines() {
   const handleAction = async (id, action) => {
     setProcessingId(id);
     try {
-      await axios.put(`http://localhost:5000/api/medicines/${id}/${action}`, {}, {
+      await axios.put(`${process.env.REACT_APP_API_URL}/medicines/${id}/${action}`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setToast(`Medicine ${action}d!`);
       // Refresh pending list after action
-      const res = await axios.get('http://localhost:5000/api/medicines?status=pending', {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/medicines?status=pending`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPending(res.data);

@@ -20,7 +20,7 @@ const Register = () => {
     setLoading(true);
     setMessage("");
     try {
-      await axios.post("http://localhost:5000/api/auth/register", form);
+      await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, form);
       setMessage("✅ Registration successful! Redirecting...");
       setTimeout(() => {
         window.location.href = "/login";

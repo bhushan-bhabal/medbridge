@@ -72,7 +72,7 @@ const MedicinesList = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5000/api/medicines/")
+      .get(`${process.env.REACT_APP_API_URL}/medicines/`)
       .then((res) => setMeds(res.data))
       .catch(() => setMeds([]))
       .finally(() => setLoading(false));
@@ -83,7 +83,7 @@ const MedicinesList = () => {
     const token = getToken();
     try {
       await axios.post(
-        `http://localhost:5000/api/medicines/claim/${med._id}`,
+        `${process.env.REACT_APP_API_URL}/medicines/claim/${med._id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -20,7 +20,7 @@ export default function DonorDashboard() {
     const fetchMedicines = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("http://localhost:5000/api/medicines/my", {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/medicines/my`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMedicines(res.data);
@@ -77,7 +77,7 @@ export default function DonorDashboard() {
     if (photo) formData.append("photo", photo);
 
     try {
-      await axios.post("http://localhost:5000/api/medicines", formData, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/medicines`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -91,7 +91,7 @@ export default function DonorDashboard() {
       setQuantity("");
       setPhoto(null);
       // Refresh medicines after upload
-      const res = await axios.get("http://localhost:5000/api/medicines/my", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/medicines/my`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMedicines(res.data);

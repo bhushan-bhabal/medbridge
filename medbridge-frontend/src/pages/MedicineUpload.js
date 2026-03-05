@@ -36,7 +36,7 @@ const MedicineUpload = () => {
     if (photo) formData.append("photo", photo);
 
     try {
-      await axios.post("http://localhost:5000/api/medicines/", formData, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/medicines/`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

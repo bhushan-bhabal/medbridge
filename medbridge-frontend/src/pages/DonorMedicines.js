@@ -20,7 +20,7 @@ const DonorMedicines = () => {
     if (!token) return;
     setLoading(true);
     axios
-      .get("http://localhost:5000/api/medicines/my", {
+      .get(`${process.env.REACT_APP_API_URL}/medicines/my`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setMyMeds(res.data))

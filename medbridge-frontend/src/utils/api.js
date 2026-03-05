@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api', // adjust base URL if needed
+  baseURL: process.env.REACT_APP_API_URL
 });
 
 // Attach your auth token from localStorage or other storage to each request

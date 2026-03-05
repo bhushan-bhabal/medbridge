@@ -24,7 +24,7 @@ const Logistics = () => {
     setLoading(true);
     setError("");
     axios
-      .get("http://localhost:5000/api/logistics/my", {
+      .get(`${process.env.REACT_APP_API_URL}/logistics/my`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setTasks(res.data))
@@ -38,7 +38,7 @@ const Logistics = () => {
     setUpdatingId(medicineId);
     try {
       await axios.post(
-        `http://localhost:5000/api/logistics/deliver/${medicineId}`,
+        `${process.env.REACT_APP_API_URL}/logistics/deliver/${medicineId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
